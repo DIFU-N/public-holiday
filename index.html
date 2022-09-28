@@ -9,9 +9,9 @@
 <body>
     <label for="countries">Choose a country:</label>
     <select name="country-names" class="country-names" id="country-names">
-        <option value="NG">Nigeria</option>
-        <!-- <option value="AF">Afghanistan</option>
-        <option value="AX">Aland Islands</option>
+        <!-- <option value="NG">Nigeria</option> -->
+        <option value="AF" title="Afghanistan">Afghanistan</option>
+        <option value="AX" title="Aland Islands">Aland Islands</option>
         <option value="AL">Albania</option>
         <option value="DZ">Algeria</option>
         <option value="AS">American Samoa</option>
@@ -261,15 +261,16 @@
         <option value="EH">Western Sahara</option>
         <option value="YE">Yemen</option>
         <option value="ZM">Zambia</option>
-        <option value="ZW">Zimbabwe</option> -->
+        <option value="ZW">Zimbabwe</option>
     </select>
     <input type="button" class="btn" id="btn" value="Search">
 
     <p></p>
-    <h1>Is <span id="today"></span> a Public Holiday in<span id="country-names-kdj"></span>??</h1>
+    <h1>Is <span id="today"></span> a Public Holiday in <span id="country-names-kdj">Algeria</span>??</h1>
     <p></p>
+    <span id="answer"></span>
     <div class="holiday">
-        <td id="table">
+     <td id="table">
         </td>
     </div>
     <p id="table"></p>
