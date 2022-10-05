@@ -1,6 +1,7 @@
 import { apiKey } from "./apiKey.js";
 let ndate = new Date();
-let current_date = ndate.getFullYear()+"-"+(ndate.getMonth()+1)+"-"+ ndate.getDate(); 
+let current_date = '2022-10-01'
+// ndate.getFullYear()+"-"+(ndate.getMonth()+1)+"-"+ ndate.getDate(); 
 console.log(current_date);
 document.getElementById("today").innerHTML = current_date;
 
@@ -17,7 +18,7 @@ async function holiday(country) {
 		.then(response => response.json())
 		.then(response => {
 			todayIsAHoliday(response);
-			console.log("response");
+			console.log(response);
 		})
 		.catch(err => console.error(err));
 
