@@ -1,6 +1,7 @@
 import { apiKey } from "./apiKey.js";
 let ndate = new Date();
 let current_date = '2022-10-01'
+let selectedValues;
 // ndate.getFullYear()+"-"+(ndate.getMonth()+1)+"-"+ ndate.getDate(); 
 console.log(current_date);
 document.getElementById("today").innerHTML = current_date;
@@ -14,16 +15,14 @@ async function holiday(country) {
 		}
 	};
 	
- 	fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options)
-		.then(response => response.json())
-		.then(response => {
-			todayIsAHoliday(response);
-			console.log(response);
-		})
-		.catch(err => console.error(err));
+	fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
-		// document.getElementById("country-names-kdj").innerHTML = selectedValues;
-		//including  all countries*****
+
+	document.getElementById("country-names-kdj").innerHTML = selectedValues;
+	//including  all countries*****
 
 }
 //json path starting with 0
@@ -32,10 +31,10 @@ function todayIsAHoliday (response) {
 	for (let i = 0; i < response.length; i++) {
 		if (response[i].date === current_date) {
 			console.log(response[i].name);
-			document.getElementById("answer").innerHTML = "Yup... It's " + response[i].name;
+			document.getElementById("answer").textContent = "Yup... It's " + response[i].name;
 			break;
 		}	else {
-			document.getElementById("answer").innerHTML = "No, Go To Work or School!!!";
+			document.getElementById("answer").textContent = "No, Go To Work or School!!!";
 			console.log("nope");
 		}
 	}
@@ -48,6 +47,9 @@ function todayIsAHoliday (response) {
 
 function search() {
 	console.log(document.querySelector(".country-names").value);
+	 selectedValues = [].filter
+	.call(document.querySelector(".country-names").options, option => option.selected)
+	.map(option => option.text);
 	return holiday(document.querySelector(".country-names").value);
 }
 search();
@@ -55,9 +57,7 @@ search();
 document.querySelector(".btn").addEventListener("click", function(e) {
 	e.preventDefault();
 	//calls out the selected country in html file
-	const selectedValues = [].filter
-	.call(document.querySelector(".country-names").options, option => option.selected)
-	.map(option => option.text);
+	
 
 	document.getElementById("country-names-kdj").innerHTML = selectedValues;
     search();
