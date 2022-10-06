@@ -18,7 +18,7 @@ async function holiday(country) {
 	fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options)
 	.then(response => response.json())
 	.then(response => console.log(response))
-	.catch(err => console.error(err));
+	.catch(err => document.getElementById("error").innerHTML = err);
 
 
 	document.getElementById("country-names-kdj").innerHTML = selectedValues;
