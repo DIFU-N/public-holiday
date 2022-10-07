@@ -17,9 +17,8 @@ async function holiday(country) {
 	
 	fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options)
 	.then(response => response.json())
-	.then(response => console.log(response))
+	.then(response => checkIfThingIsThere(response))
 	.catch(err => document.getElementById("error").innerHTML = err);
-
 
 	document.getElementById("country-names-kdj").innerHTML = selectedValues;
 	//including  all countries*****
@@ -71,3 +70,18 @@ ent.addEventListener("keypress", function(event) {
     }
 })
 
+// looping the select options to see which one returns an error 
+function checkIfThingIsThere(response) {
+	let s = document.querySelector(".country-names").children;
+	for (let i = 0; i < s.length; i++) {
+		if (holiday(s[i].value)) {
+			if(!Object.keys(response.data).length){
+				document.getElementById("answer").textContent = s[i].outerHTML;
+			}
+		}
+	}
+	// console.log(s[1].value);
+}
+
+
+// checkIfThingIsThere();
