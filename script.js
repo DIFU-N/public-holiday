@@ -71,17 +71,56 @@ ent.addEventListener("keypress", function(event) {
 })
 
 // looping the select options to see which one returns an error 
-function checkIfThingIsThere(response) {
-	let s = document.querySelector(".country-names").children;
-	for (let i = 0; i < s.length; i++) {
-		if (holiday(s[i].value)) {
-			if(!Object.keys(response.data).length){
-				document.getElementById("answer").textContent = s[i].outerHTML;
-			}
-		}
-	}
+function checkIfThingIsThere (response) {
+	const cNames = document.querySelector(".country-names").innerText; // this works for getting all the text values from the html class
+	const mlok = cNames.innerText;
+	const sArray = Array.from(cNames);
+	console.log(cNames);
+	document.getElementById("answer").textContent = sArray.length + " countries in total";
+
+// 	for (let i = 0; i < sArray.length; i++) {
+// 		// console.log(sArray[i].value+ " = "+ sArray[i].textContent);
+// 		if (holiday(sArray[i].value) == null) {
+// 			// console.log('mlki');
+// 			if(Object.keys(response.data).length){
+// 				document.getElementById("error").textContent = sArray[i].outerText;
+// 				i++;
+// 				return
+// 			}
+// 		}
+// 		return null;
+// 	}
+} 
+
+// function checkIfThingIsThere(response) {
+// 	let s = document.querySelector(".country-names").children;
+// 	let sArray = Array.from(s);
+// 	for (let i = 0; i < sArray.length; i++) {
+// 		// console.log(sArray.length);
+// 		// checkEveryCountry = () => {
+// 			if (holiday(sArray[i].value) === null) {
+// 				console.log('mlki');
+// 				if(Object.keys(response.data).length){
+// 					document.getElementById("answer").textContent = sArray[i].outerHTML;
+// 					i++;
+// 					return
+// 				}
+// 				// i++;
+// 				// return checkEveryCountry();
+// 			}	
+// 		// }
+// 		return null;
+// 	}
+
+	// function isEmpty(obj) {
+	// 	for(var prop in obj) {
+	// 		if(obj.hasOwnProperty(prop))
+	// 			return false;
+	// 	}
+	// 	return true;
+	// }
 	// console.log(s[1].value);
-}
+// }
 
 
 // checkIfThingIsThere();
