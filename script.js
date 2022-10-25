@@ -6,22 +6,29 @@ let selectedValues;
 console.log(current_date);
 document.getElementById("today").innerHTML = current_date;
 
-async function holiday(country) {
-	const options = {
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': apiKey,
-			'X-RapidAPI-Host': 'public-holiday.p.rapidapi.com'
-		}
-	};
-	
-	fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options)
-	.then(response => response.json())
-	.then(response => checkIfThingIsThere(response))
-	.catch(err => document.getElementById("error").innerHTML = err);
+async function holiday(i, country, thisName) {
+	try {
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': apiKey,
+				'X-RapidAPI-Host': 'public-holiday.p.rapidapi.com'
+			}
+		};
+		
+		const response = await fetch('https://public-holiday.p.rapidapi.com/2022/'+country, options);
+		await response.json();
+		checkIfThingIsThere(response);
 
-	document.getElementById("country-names-kdj").innerHTML = selectedValues;
-	//including  all countries*****
+		document.getElementById("country-names-kdj").innerHTML = selectedValues;
+		//including  all countries*****
+			
+	} catch (error) {
+		console.log(thisName);
+		document.getElementById("error").innerHTML += 	`
+			${thisName}<p>
+		`; 
+	}
 
 }
 //json path starting with 0
@@ -44,14 +51,21 @@ function todayIsAHoliday (response) {
 // var current_date = ndate.getFullYear()+"-"+(ndate.getMonth()+1)+"-"+ ndate.getDate();
 // document.getElementById("today").innerHTML = current_date;
 
+
+const cNamesForArray = document.querySelector(".country-names").children;
+const cNames = document.querySelector(".country-names"); // this works for getting all the text values from the html class
+const sArray = Array.from(cNamesForArray);
+
+
 function search() {
 	console.log(document.querySelector(".country-names").value);
 	 selectedValues = [].filter
 	.call(document.querySelector(".country-names").options, option => option.selected)
 	.map(option => option.text);
-	return holiday(document.querySelector(".country-names").value);
+	return	testForCountries();
+	// return holiday(document.querySelector(".country-names").value);
 }
-search();
+search();	
 
 document.querySelector(".btn").addEventListener("click", function(e) {
 	e.preventDefault();
@@ -70,27 +84,20 @@ ent.addEventListener("keypress", function(event) {
     }
 })
 
+
+
 // looping the select options to see which one returns an error 
-function checkIfThingIsThere (response) {
-	const cNames = document.querySelector(".country-names").innerText; // this works for getting all the text values from the html class
-	const mlok = cNames.innerText;
-	const sArray = Array.from(cNames);
-	console.log(cNames);
+function testForCountries() {
+	// console.log(cNames[1].value); // this helps to get the individual countries from the class, using an array didn't work.
 	document.getElementById("answer").textContent = sArray.length + " countries in total";
 
-// 	for (let i = 0; i < sArray.length; i++) {
-// 		// console.log(sArray[i].value+ " = "+ sArray[i].textContent);
-// 		if (holiday(sArray[i].value) == null) {
-// 			// console.log('mlki');
-// 			if(Object.keys(response.data).length){
-// 				document.getElementById("error").textContent = sArray[i].outerText;
-// 				i++;
-// 				return
-// 			}
-// 		}
-// 		return null;
-// 	}
-} 
+	for (let i = 0; i < 30; i++) {
+		let cNamesValue = cNames[i].value;
+		let cNamesText = cNames[i].textContent;
+		holiday(i, cNamesValue, cNamesText);
+	}
+}
+// testForCountries();
 
 // function checkIfThingIsThere(response) {
 // 	let s = document.querySelector(".country-names").children;
@@ -121,6 +128,3 @@ function checkIfThingIsThere (response) {
 	// }
 	// console.log(s[1].value);
 // }
-
-
-// checkIfThingIsThere();
