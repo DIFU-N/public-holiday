@@ -5,6 +5,7 @@ let selectedValues;
 // ndate.getFullYear()+"-"+(ndate.getMonth()+1)+"-"+ ndate.getDate(); 
 console.log(current_date);
 document.getElementById("today").innerHTML = current_date;
+let notInApi = [];
 
 async function holiday(i, country, thisName) {
 	try {
@@ -25,9 +26,7 @@ async function holiday(i, country, thisName) {
 			
 	} catch (error) {
 		console.log(thisName);
-		document.getElementById("error").innerHTML += 	`
-			${thisName}<p>
-		`; 
+		notInApi.push(thisName);
 	}
 
 }
@@ -91,13 +90,21 @@ function testForCountries() {
 	// console.log(cNames[1].value); // this helps to get the individual countries from the class, using an array didn't work.
 	document.getElementById("answer").textContent = sArray.length + " countries in total";
 
-	for (let i = 0; i < 30; i++) {
+	for (let i = 0; i < 20; i++) {
 		let cNamesValue = cNames[i].value;
 		let cNamesText = cNames[i].textContent;
 		holiday(i, cNamesValue, cNamesText);
 	}
 }
 // testForCountries();
+
+function checkIfThingIsThere (response) {
+	// CHECKS IF country response is empty and returns the country name
+	if (response.ok) {
+		console.log("miki");
+	}
+	return null;
+} 
 
 // function checkIfThingIsThere(response) {
 // 	let s = document.querySelector(".country-names").children;
